@@ -29,11 +29,19 @@ Kn = np.asarray([10.0, 10.0, 10.0, 10.0, 5.0, 5.0, 5.0])
 max_angvel = 0.785
 
 
+def circle(t: float, r: float, h: float, k: float, f: float) -> np.ndarray:
+    """Return the (x, y) coordinates of a circle with radius r centered at (h, k)
+    as a function of time t and frequency f."""
+    x = r * np.cos(2 * np.pi * f * t) + h
+    y = r * np.sin(2 * np.pi * f * t) + k
+    return np.array([x, y])
+
+
 def main() -> None:
     assert mujoco.__version__ >= "3.1.0", "Please upgrade to mujoco 3.1.0 or later."
 
     # Load the model and data.
-    model = mujoco.MjModel.from_xml_path("franka_emika_panda/scene.xml")
+    model = mujoco.MjModel.from_xml_path("franka_knee/scene.xml")
     data = mujoco.MjData(model)
 
     # Enable gravity compensation. Set to 0.0 to disable.
@@ -57,12 +65,14 @@ def main() -> None:
         "joint7",
     ]
     dof_ids = np.array([model.joint(name).id for name in joint_names])
+    print(dof_ids)
     actuator_ids = np.array([model.actuator(name).id for name in joint_names])
 
     # Initial joint configuration saved as a keyframe in the XML file.
     key_name = "home"
     key_id = model.key(key_name).id
-    q0 = model.key(key_name).qpos
+    q0 = model.key(key_name).qpos[dof_ids]
+    print(q0)
 
     # Mocap body we will control with our mouse.
     mocap_name = "target"
@@ -80,8 +90,8 @@ def main() -> None:
     with mujoco.viewer.launch_passive(
         model=model,
         data=data,
-        show_left_ui=False,
-        show_right_ui=False,
+        show_left_ui=True,
+        show_right_ui=True,
     ) as viewer:
         # Reset the simulation.
         mujoco.mj_resetDataKeyframe(model, data, key_id)
@@ -89,14 +99,13 @@ def main() -> None:
         # Reset the free camera.
         mujoco.mjv_defaultFreeCamera(model, viewer.cam)
 
-        # Enable site frame visualization.
-        viewer.opt.frame = mujoco.mjtFrame.mjFRAME_SITE
 
         while viewer.is_running():
             step_start = time.time()
 
             # Spatial velocity (aka twist).
-            dx = data.mocap_pos[mocap_id] - data.site(site_id).xpos
+            
+            dx = data.mocap_pos[mocap_id] - data.site(site_id).xpos 
             twist[:3] = Kpos * dx / integration_dt
             mujoco.mju_mat2Quat(site_quat, data.site(site_id).xmat)
             mujoco.mju_negQuat(site_quat_conj, site_quat)
@@ -108,10 +117,10 @@ def main() -> None:
             mujoco.mj_jacSite(model, data, jac[:3], jac[3:], site_id)
 
             # Damped least squares.
-            dq = jac.T @ np.linalg.solve(jac @ jac.T + diag, twist)
+            dq = (jac.T @ np.linalg.solve(jac @ jac.T + diag, twist))[dof_ids]
 
             # Nullspace control biasing joint velocities towards the home configuration.
-            dq += (eye - np.linalg.pinv(jac) @ jac) @ (Kn * (q0 - data.qpos[dof_ids]))
+            dq += (eye - np.linalg.pinv(jac) @ jac)[dof_ids, dof_ids] @ (Kn * (q0 - data.qpos[dof_ids]))
 
             # Clamp maximum joint velocity.
             dq_abs_max = np.abs(dq).max()
@@ -120,8 +129,10 @@ def main() -> None:
 
             # Integrate joint velocities to obtain joint positions.
             q = data.qpos.copy()  # Note the copy here is important.
-            mujoco.mj_integratePos(model, q, dq, integration_dt)
-            np.clip(q, *model.jnt_range.T, out=q)
+            dq_full = data.qvel.copy()
+            dq_full[dof_ids] = dq
+            mujoco.mj_integratePos(model, q, dq_full, integration_dt)
+            np.clip(q[:10], *model.jnt_range.T, out=q[:10])
 
             # Set the control signal and step the simulation.
             data.ctrl[actuator_ids] = q[dof_ids]

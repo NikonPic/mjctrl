@@ -12,7 +12,7 @@ integration_dt: float = 1.0
 damping: float = 1e-4
 
 # Whether to enable gravity compensation.
-gravity_compensation: bool = True
+gravity_compensation: bool = False
 
 # Simulation timestep in seconds.
 dt: float = 0.002
@@ -101,7 +101,7 @@ def main() -> None:
             step_start = time.time()
 
             # Set the target position of the end-effector site.
-            data.mocap_pos[mocap_id, 0:2] = circle(data.time, 0.1, 0.5, 0.0, 0.5)
+            data.mocap_pos[mocap_id, 0:2] = circle(2*data.time, 0.1, 0.5, 0.0, 0.5)
 
             # Position error.
             error_pos[:] = data.mocap_pos[mocap_id] - data.site(site_id).xpos
