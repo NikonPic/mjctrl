@@ -266,9 +266,8 @@
 
   <sensor>
       <!-- Force-torque sensor attached to the site -->
-      <accelerometer name="acc_eff" site="attachment_site"/>
-      <force name="force_eff" site="attachment_site"/>
-      <torque name="torque_eff" site="attachment_site"/>
+      <force name="force_eff" site="attachment_site2"/>
+      <torque name="torque_eff" site="attachment_site2"/>
   </sensor>
 
   <equality>

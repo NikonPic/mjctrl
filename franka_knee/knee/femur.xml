@@ -17,6 +17,10 @@
             <geom class="collisions" mesh="patella_0" name="patella_0" type="mesh" />
             <geom class="collisions" mesh="patella_1" name="patella_1" type="mesh" />
             <geom class="collisions" mesh="patella_2" name="patella_2" type="mesh" />
+
+            <site name="attachment_site2" rgba="0 1 1 1" size="0.03" group="1"
+                quat="1 0 0 0" pos="0.05 0.175 -0.325" />
+
         </body>
         <site name="dMCL_start"
             pos="0.036439365386962894 0.1270460662841797 -0.34141748046875003" size="0.001"
@@ -47,5 +51,6 @@
         <geom class="collisions" mesh="femur_9" name="femur_9" type="mesh" />
         <site name="LP_start" pos="0.08642813873291016 0.18136546325683595 -0.3579686584472656"
             size="0.001" type="sphere" />
+
     </body>
 </mujoco>
