@@ -1,0 +1,92 @@
+<mujoco model="knee_assets">
+    <compiler angle="radian" autolimits="true" texturedir="assets" />
+    <option integrator="implicit" />
+    <asset>
+        <material name="bone" reflectance="1" shininess="0" specular="0" rgba="0.68 0.64 0.57 1" />
+        <mesh file="knee/meshes/tibia.stl" name="tibia mesh" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/tracker tibia.stl" name="tibia tracker mesh"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/fibula.stl" name="fibula mesh" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/patella.stl" name="patella mesh" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/femur.stl" name="femur mesh" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/tracker femur.stl" name="femur tracker mesh"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_0.stl" name="femur_0" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_1.stl" name="femur_1" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_2.stl" name="femur_2" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_0.stl" name="tibia_0" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_1.stl" name="tibia_1" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_2.stl" name="tibia_2" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_3.stl" name="tibia_3" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_0.stl" name="fibula_0"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_1.stl" name="fibula_1"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_2.stl" name="fibula_2"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/patella_0.stl" name="patella_0"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_3.stl" name="femur_3" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_4.stl" name="femur_4" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_5.stl" name="femur_5" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_6.stl" name="femur_6" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_7.stl" name="femur_7" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_8.stl" name="femur_8" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/femur_9.stl" name="femur_9" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_4.stl" name="tibia_4" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_5.stl" name="tibia_5" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_6.stl" name="tibia_6" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_7.stl" name="tibia_7" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_8.stl" name="tibia_8" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_9.stl" name="tibia_9" scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_10.stl" name="tibia_10"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_11.stl" name="tibia_11"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/tibia_12.stl" name="tibia_12"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_3.stl" name="fibula_3"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_4.stl" name="fibula_4"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_5.stl" name="fibula_5"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_6.stl" name="fibula_6"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_7.stl" name="fibula_7"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_8.stl" name="fibula_8"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_9.stl" name="fibula_9"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_10.stl" name="fibula_10"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_11.stl" name="fibula_11"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_12.stl" name="fibula_12"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_13.stl" name="fibula_13"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/fibula_14.stl" name="fibula_14"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/patella_1.stl" name="patella_1"
+            scale="0.001 0.001 0.001" />
+        <mesh file="knee/meshes/convex_meshes/patella_2.stl" name="patella_2"
+            scale="0.001 0.001 0.001" />
+    </asset>
+
+    <default>
+        <default class="collisions">
+            <geom type="mesh" contype="3" conaffinity="2" group="0" friction="0.7" solref="0.015 1"
+                solimp="0.95 0.99 0.003" rgba="0.68 0.64 0.57 0.0" />
+        </default>
+        <default class="visuals">
+            <geom type="mesh" contype="0" conaffinity="0" group="2" material="bone"
+                rgba="0.68 0.64 0.57 0.6" />
+        </default>
+        <default class="tracker">
+            <geom type="mesh" contype="0" conaffinity="0" group="2" rgba="0.2 0.2 1 0.2" />
+        </default>
+    </default>
+
+</mujoco>

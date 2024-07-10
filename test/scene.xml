@@ -1,0 +1,43 @@
+<mujoco model="simple_robot">
+    <compiler angle="radian" />
+    <option integrator="RK4" timestep="0.01" />
+  
+    <worldbody>
+      <light directional="true" diffuse=".8 .8 .8" specular=".3 .3 .3" pos="0 0 4" dir="0 0 -1"/>
+      <body name="ground" pos="0 0 0">
+        <site name="ground" pos="0 0 0" size="0.02" rgba="1 0 0 1" />
+        <geom type="plane" size="10 10 0.1" rgba="0.9 0.9 0.9 1" />
+      </body>
+      <body name="robot_base" pos="0 0 0.5">
+        <geom type="box" size="0.1 0.1 0.1" rgba="0.8 0.8 0.8 1" />
+        <body name="link1" pos="0 0 0.1">
+          <joint type="hinge" axis="0 1 0" name="joint1" />
+          <geom type="capsule" fromto="0 0 0 0 0 0.3" size="0.05" rgba="0.7 0.7 0.7 1" />
+          <body name="link2" pos="0 0 0.3">
+            <joint type="hinge" axis="0 1 0" name="joint2" />
+            <geom type="capsule" fromto="0 0 0 0 0 0.3" size="0.05" rgba="0.7 0.7 0.7 1" />
+            <body name="eff" pos="0 0 0.3">
+              <geom type="sphere" size="0.05" rgba="0.6 0.6 0.6 1" />
+              <site name="eff_site" pos="0 0 0" size="0.02" rgba="1 0 0 1" />
+            </body>
+          </body>
+        </body>
+      </body>
+    </worldbody>
+  
+    <tendon>
+      <spatial name="tendon1" stiffness="200" damping="20" width="0.01" rgba="0.9 0.2 0.2 1">
+        <site site="eff_site" />
+        <site site="ground" />
+      </spatial>
+    </tendon>
+  
+    <sensor>
+      <force site="eff_site" />
+    </sensor>
+  
+    <actuator>
+      <motor joint="joint1" ctrlrange="-1 1" />
+      <motor joint="joint2" ctrlrange="-1 1" />
+    </actuator>
+  </mujoco>

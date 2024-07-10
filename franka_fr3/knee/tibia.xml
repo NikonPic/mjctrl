@@ -1,0 +1,64 @@
+<mujoco model="tibia">
+    <body name="tibia" pos="0.25 -0.25 0.5" quat="1 0 0 0">
+        <geom class="visuals" euler="0 0 0" mesh="tibia mesh" pos="0 0 0" type="mesh" />
+        <geom class="tracker" euler="0 0 0" mesh="tibia tracker mesh" pos="0 0 0" type="mesh" />
+        <inertial
+            fullinertia="0.0008780700528212282 0.000882003973073614 0.00018810237832225102 -2.0773214139677317e-05 -0.00017248916504192767 -0.00011027907295235728"
+            mass="0.4452526927806469"
+            pos="0.035537882962384665 0.1738143285325765 -0.42422270065004697" />
+        <body euler="0 0 0" name="fibula" pos="0 0 0">
+            <inertial
+                fullinertia="6.414713658940696e-05 6.720841419660586e-05 5.044916367991743e-06 8.273971128515786e-07 -1.4502261752779585e-05 3.717336306071836e-06"
+                mass="0.03620870310593307"
+                pos="0.008065118114846828 0.21070770784463308 -0.4292249651398537" />
+            <geom class="visuals" euler="0 0 0" mesh="fibula mesh" pos="0 0 0" type="mesh" />
+            <geom class="collisions" mesh="fibula_0" name="fibula_0" type="mesh" />
+            <geom class="collisions" mesh="fibula_1" name="fibula_1" type="mesh" />
+            <geom class="collisions" mesh="fibula_2" name="fibula_2" type="mesh" />
+            <geom class="collisions" mesh="fibula_3" name="fibula_3" type="mesh" />
+            <geom class="collisions" mesh="fibula_4" name="fibula_4" type="mesh" />
+            <geom class="collisions" mesh="fibula_5" name="fibula_5" type="mesh" />
+            <geom class="collisions" mesh="fibula_6" name="fibula_6" type="mesh" />
+            <geom class="collisions" mesh="fibula_7" name="fibula_7" type="mesh" />
+            <geom class="collisions" mesh="fibula_8" name="fibula_8" type="mesh" />
+            <geom class="collisions" mesh="fibula_9" name="fibula_9" type="mesh" />
+            <geom class="collisions" mesh="fibula_10" name="fibula_10" type="mesh" />
+            <geom class="collisions" mesh="fibula_11" name="fibula_11" type="mesh" />
+            <geom class="collisions" mesh="fibula_12" name="fibula_12" type="mesh" />
+            <geom class="collisions" mesh="fibula_13" name="fibula_13" type="mesh" />
+            <geom class="collisions" mesh="fibula_14" name="fibula_14" type="mesh" />
+        </body>
+        <site name="dMCL_end" pos="0.03582199096679688 0.13370420837402344 -0.37326898193359376"
+            size="0.001" type="sphere" />
+        <site name="HKB_end" pos="0.017896549224853515 0.17780065917968751 -0.36857818603515624"
+            size="0.001" type="sphere" />
+        <site name="LCL_end" pos="0.019021478652954102 0.2215125274658203 -0.390551513671875"
+            size="0.001" type="sphere" />
+        <site name="POL_end" pos="0.024396358489990236 0.13385227966308594 -0.37165481567382813"
+            size="0.001" type="sphere" />
+        <site name="PS_end" pos="0.015489018440246582 0.16296687316894531 -0.3892603149414063"
+            size="0.001" type="sphere" />
+        <site name="sMCL_end" pos="0.03592108917236328 0.13487907409667968 -0.3777944641113281"
+            size="0.001" type="sphere" />
+        <site name="VKB_end" pos="0.04289450454711914 0.17654144287109375 -0.36209667968750003"
+            size="0.001" type="sphere" />
+        <geom class="collisions" mesh="tibia_0" name="tibia_0" type="mesh" />
+        <geom class="collisions" mesh="tibia_1" name="tibia_1" type="mesh" />
+        <geom class="collisions" mesh="tibia_2" name="tibia_2" type="mesh" />
+        <geom class="collisions" mesh="tibia_3" name="tibia_3" type="mesh" />
+        <geom class="collisions" mesh="tibia_4" name="tibia_4" type="mesh" />
+        <geom class="collisions" mesh="tibia_5" name="tibia_5" type="mesh" />
+        <geom class="collisions" mesh="tibia_6" name="tibia_6" type="mesh" />
+        <geom class="collisions" mesh="tibia_7" name="tibia_7" type="mesh" />
+        <geom class="collisions" mesh="tibia_8" name="tibia_8" type="mesh" />
+        <geom class="collisions" mesh="tibia_9" name="tibia_9" type="mesh" />
+        <geom class="collisions" mesh="tibia_10" name="tibia_10" type="mesh" />
+        <geom class="collisions" mesh="tibia_11" name="tibia_11" type="mesh" />
+        <geom class="collisions" mesh="tibia_12" name="tibia_12" type="mesh" />
+        <site name="LP_end" pos="0.07079630279541016 0.18260380554199218 -0.40183831787109375"
+            size="0.001" type="sphere" />
+        <geom class="visuals"
+            fromto="0.048301631927490235 0.21166104125976562 -0.3733244934082031 0.04652249145507813 0.13440820312500001 -0.3769089660644531"
+            name="PS_wrap" rgba=".2 .2 .5 0.0" size="0.025" type="cylinder" />
+    </body>
+</mujoco>

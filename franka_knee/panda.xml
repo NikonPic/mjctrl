@@ -209,11 +209,17 @@
                     <geom mesh="link7_7" material="white" class="visual"/>
                     <geom mesh="link7_c" class="collision"/>
                     <body name="hand" pos="0 0 0.107" quat="0.9238795 0 0 -0.3826834">
-                      <body name="attachment" pos="0 0 0.107" quat="0.3826834 0 0 0.9238795">
+
+                      
+
+                      <body name="attachment" pos="0 0 0.0" quat="1 0 0 0">
+
                         <site name="attachment_site" rgba="1 0 0 1" size="0.01" group="1"
-                          quat="0 0 0 1" pos="0 0 0.2" />
+                      quat="0 0 0 1" pos="0 0 0.2" />
+
+                        <include file="knee/femur.xml"/>
+
                       </body>
-                      <include file="knee/femur.xml"/>
                       <inertial mass="0.73" pos="-0.01 0 0.03" diaginertia="0.001 0.0025 0.0017"/>
                       <geom mesh="hand_0" material="off_white" class="visual"/>
                       <geom mesh="hand_1" material="black" class="visual"/>
@@ -265,9 +271,8 @@
   </tendon>
 
   <sensor>
-      <!-- Force-torque sensor attached to the site -->
-      <force name="force_eff" site="attachment_site2"/>
-      <torque name="torque_eff" site="attachment_site2"/>
+      <force name="force_eff" site="attachment_site"/>
+      <torque name="torque_eff" site="attachment_site"/>
   </sensor>
 
   <equality>

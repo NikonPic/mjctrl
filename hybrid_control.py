@@ -5,7 +5,7 @@ import time
 import matplotlib.pyplot as plt
 
 # path to the model
-model_path = "franka_knee/scene.xml"
+model_path = "franka_fr3/scene.xml"
 
 # Integration timestep in seconds. This corresponds to the amount of time the joint
 # velocities will be integrated for to obtain the desired joint positions.
@@ -30,16 +30,16 @@ dt: float = 0.002
 Kn = np.asarray([10.0, 10.0, 10.0, 10.0, 5.0, 5.0, 5.0])
 
 # Maximum allowable joint velocity in rad/s.
-max_angvel = 0.785
+max_angvel = 40
 
 # maximum time
 end_time = 10
 
 # desired force
-F_des = [0, 0, -10]
+F_des = [0, 0, -20]
 
 # weight for movement control
-twist_weight = 0.3
+twist_weight = 1
 
 
 def circle(t: float, r: float, h: float, k: float, f: float) -> np.ndarray:
@@ -73,7 +73,7 @@ def main() -> None:
     site_name = "attachment_site"
     site_id = model.site(site_name).id
 
-    site_name_ft = "attachment_site2"
+    site_name_ft = "attachment_site"
     site_id_ft = model.site(site_name_ft).id
 
     # Get the dof and actuator ids for the joints we wish to control. These are copied
@@ -95,7 +95,6 @@ def main() -> None:
     key_name = "home"
     key_id = model.key(key_name).id
     q0 = model.key(key_name).qpos[dof_ids]
-
 
     # Mocap body we will control with our mouse.
     mocap_name = "target"
@@ -147,7 +146,7 @@ def main() -> None:
             # Compute the end-effector force and torque using the Jacobian
             end_effector_load = jac[:, dof_ids] @ joint_torques[dof_ids]
             end_effector_forces = get_sensor_data(data, model, "force_eff")
-            end_effector_torques = get_sensor_data(data, model, "torque")
+            end_effector_torques = get_sensor_data(data, model, "torque_eff")
 
             # Spatial velocity (aka twist).
             dx = data.mocap_pos[mocap_id] - data.site(site_id).xpos
@@ -165,22 +164,24 @@ def main() -> None:
             # Nullspace control biasing joint velocities towards the home configuration.
             dq_twist_null = (eye - np.linalg.pinv(jac) @
                              jac)[dof_ids, dof_ids] @ (Kn * (q0 - data.qpos[dof_ids]))
-            
+
             null_space_projector = eye - np.linalg.pinv(jac) @ jac
-            
+
             # now calc jac with respect to ft sensor
             mujoco.mj_jacSite(model, data, jac[:3], jac[3:], site_id_ft)
+            xmat_sens = data.site_xmat[site_id_ft].reshape(3, 3)
+            F_sens = xmat_sens.T @ end_effector_forces
 
-
-            F_actual = get_sensor_data(data, model, "force_eff")
             # dF
-            F_control = 10 * (F_des - F_actual)
-            torque_control_force = jac[:3, :].T @ F_control
-            torque_control_null_space = null_space_projector[dof_ids, dof_ids] @ torque_control_force[dof_ids]
+            F_error = 1 * (F_des - F_sens)
+            torque_control_force = jac[:3, :].T @ (F_error)
+            torque_control_null_space = null_space_projector[dof_ids,
+                                                             dof_ids] @ torque_control_force[dof_ids]
 
             # Combine controllers
             dq_combined = twist_weight * \
-                (dq_twist + dq_twist_null) + load_minimization_weight * torque_control_null_space
+                (dq_twist + dq_twist_null) + \
+                load_minimization_weight * torque_control_force[dof_ids]
 
             # Clamp maximum joint velocity.
             dq_abs_max = np.abs(dq_combined).max()
@@ -198,7 +199,7 @@ def main() -> None:
             data.ctrl[actuator_ids] = q[dof_ids]
             mujoco.mj_step(model, data)
 
-            force_data_list.append(end_effector_forces.copy())
+            force_data_list.append(F_sens.copy())
             torque_data_list.append(end_effector_torques.copy())
             time_list.append(data.time)
 
@@ -220,6 +221,7 @@ def main() -> None:
         plt.title("Force at Attachment Site")
         plt.xlabel("Time (s)")
         plt.ylabel("Force (N)")
+        plt.grid(0.25)
         plt.legend(['Fx', 'Fy', 'Fz'])
 
         plt.subplot(2, 1, 2)
@@ -227,6 +229,7 @@ def main() -> None:
         plt.title("Torque at Attachment Site")
         plt.xlabel("Time (s)")
         plt.ylabel("Torque (Nm)")
+        plt.grid(0.25)
         plt.legend(['Tx', 'Ty', 'Tz'])
 
         plt.tight_layout()

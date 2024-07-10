@@ -14,7 +14,7 @@ Kori: float = 0.7
 damping: float = 1e-4
 
 # Gains for the impedance control.
-K_x_values = np.array([150.0, 150.0, 150.0, 10.0, 10.0, 10.0])
+K_x_values = np.array([300.0, 300.0, 300.0, 10.0, 10.0, 10.0])
 K_x = np.diag(K_x_values)  # Stiffness matrix
 D_x = np.diag(2.0 * np.sqrt(K_x_values))  # Damping matrix
 
